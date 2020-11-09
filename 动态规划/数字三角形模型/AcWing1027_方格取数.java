@@ -1,6 +1,7 @@
 import java.io.*;
 import java.util.*; 
-public class Main {
+//1027. 方格取数 https://www.acwing.com/problem/content/1029/
+class Main {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
         int N = sc.nextInt();
@@ -21,11 +22,12 @@ public class Main {
             for (int j1 = 1; j1 <= N; j1++) {
                 for (int i2 = 1; i2 <= N; i2++) {
                     for (int j2 = 1; j2 <= N; j2++) {
-                        int max1 = dp[i1-1][j1][i2-1][j2];
-                        int max2 = dp[i1-1][j1][i2][j2-1];
-                        int max3 = dp[i1][j1-1][i2-1][j2];
-                        int max4 = dp[i1][j1-1][i2][j2-1];
-                        dp[i1][j1][i2][j2] = Math.max(Math.max(max1, max2), Math.max(max3, max4)) + ((i1==i2&&j1==j2) ? w[i1-1][j1-1] : (w[i1-1][j1-1] + w[i2-1][j2-1])); 
+                        int temp = dp[i1][j1][i2][j2];
+                        temp = Math.max(temp, dp[i1-1][j1][i2-1][j2]);
+                        temp = Math.max(temp, dp[i1-1][j1][i2][j2-1]);
+                        temp = Math.max(temp, dp[i1][j1-1][i2-1][j2]);
+                        temp = Math.max(temp, dp[i1][j1-1][i2][j2-1]);
+                        dp[i1][j1][i2][j2] = temp + ((i1==i2&&j1==j2) ? w[i1-1][j1-1] : (w[i1-1][j1-1] + w[i2-1][j2-1])); 
                     }
                 }
             }
@@ -41,11 +43,12 @@ public class Main {
                 for (int i2 = 1; i2 <= N; i2++) {
                     int j1 = k-i1, j2 = k-i2;
                     if (1 <= j1 && j1 <= N && 1 <= j2 && j2 <= N) {
-                        int max1 = dp[k-1][i1-1][i2-1];
-                        int max2 = dp[k-1][i1-1][i2];
-                        int max3 = dp[k-1][i1][i2-1];
-                        int max4 = dp[k-1][i1][i2];
-                        dp[k][i1][i2] = Math.max(Math.max(max1, max2), Math.max(max3, max4)) + ((i1==i2&&j1==j2) ? w[i1-1][j1-1] : (w[i1-1][j1-1] + w[i2-1][j2-1])); 
+                        int temp = dp[k][i1][i2]; 
+                        temp = Math.max(temp, dp[k-1][i1-1][i2-1]);
+                        temp = Math.max(temp, dp[k-1][i1-1][i2]);
+                        temp = Math.max(temp, dp[k-1][i1][i2-1]);
+                        temp = Math.max(temp, dp[k-1][i1][i2]);
+                        dp[k][i1][i2] = temp + ((i1==i2&&j1==j2) ? w[i1-1][j1-1] : (w[i1-1][j1-1] + w[i2-1][j2-1]));     
                     }
                 }
             }
