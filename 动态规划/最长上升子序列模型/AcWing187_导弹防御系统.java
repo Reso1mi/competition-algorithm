@@ -33,18 +33,70 @@ import java.io.*;
 对于给出样例，最少需要两套防御系统。
 一套击落高度为3,4的导弹，另一套击落高度为5,2,1的导弹。
  */
+
+//1. 考虑每个点是在上升序列中还是下降序列中
+//2. 考虑是否需要新建一个单独的序列
 class Main {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
-        int N = sc.nextInt();
-        int[] w = new int[N];
-        for (int i = 0; i < N; i++) {
-            w[i] = sc.nextInt();
+        while (sc.hasNext()) {
+            int N = sc.nextInt();
+            if (N == 0) return;
+            int[] w = new int[N];
+            up = new int[N];
+            down = new int[N];
+            res = Integer.MAX_VALUE;
+            for (int i = 0; i < N; i++) {
+                w[i] = sc.nextInt();
+            }
+            dfs(w, 0, 0, 0);
+            System.out.println(res);
         }
-        System.out.println(solve(w, N));
     }
 
-    public static int solve(int[] w, int N) {
-        
+    static int[] up = null;
+    static int[] down = null;
+    static int res;
+
+    public static void dfs(int[] w, int c, int ul, int dl) {
+        //关键的剪枝
+        if (ul+dl >= res) return;
+        if (c == w.length) {
+            res = Math.min(ul+dl, res);
+            return;
+        }
+        //将c放在上升序列中
+        boolean flag = false;
+        for (int i = 0; i < ul; i++) {
+            if (up[i] > w[c]) {
+                flag = true;
+                int temp = up[i];
+                up[i] = w[c];
+                dfs(w, c+1, ul, dl);
+                up[i] = temp;
+                break;
+            }
+        }
+        if (!flag) {
+            up[ul] = w[c];
+            dfs(w, c+1, ul+1, dl);
+            up[ul] = 0;
+        }
+        flag = false;
+        for (int i = 0; i < dl; i++) {
+            if (down[i] < w[c]) {
+                flag = true;
+                int temp = down[i];
+                down[i] = w[c];
+                dfs(w, c+1, ul, dl);
+                down[i] = temp;
+                break;
+            }
+        }
+        if (!flag) {
+            down[dl] = w[c];
+            dfs(w, c+1, ul, dl+1);
+            down[dl] = 0;
+        }
     }
 }
