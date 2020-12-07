@@ -55,11 +55,21 @@
 0 100
  */
 import java.util.*;
+import java.io.*;
+//本地测试
+public class AcWing1022_宠物小精灵之收服 {
+    public static void main(String... args) throws Exception{
+        new Main().main();
+    }
+}
+
 class Main {
-    public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
+
+    public static void main(String... args) throws Exception {
+        //Scanner sc = new Scanner(System.in);
+        Scanner sc = new Scanner(new File("input.txt"));
         int N = sc.nextInt(); //精灵球个数
-        int M = sc.nextInt(); //皮卡丘体力值
+        int M = sc.nextInt()-1; //皮卡丘体力值
         int K = sc.nextInt();
         int[] costN = new int[K];
         int[] costM = new int[K];
@@ -71,14 +81,26 @@ class Main {
         System.out.println(res[0]+" "+res[1]);
     }
 
+    //多维01背包
     public static int[] solve(int N, int M, int K, int[] costN, int[] costM) {
+        //dp[i][j]: 消耗最多i个精灵球和最多j点生命值，能捕捉的最多精灵数量
         int[][] dp = new int[N+1][M+1];
         for (int i = 0; i < K; i++) {
-            for (int j = N, k = M; j >= costN[i] && k >= costM[i]; j--, k--) {
-                dp[j][k] = Math.max(dp[j][k], dp[j-costN[i]][k-costM[i]] + 1);
+            for (int j = N; j >= costN[i]; j--) {
+                for (int k = M; k >= costM[i]; k--) {
+                    dp[j][k] = Math.max(dp[j][k], dp[j-costN[i]][k-costM[i]] + 1);
+                }
             }
         }
-        int count = dp[N][M];
-        return new int[]{count, f[count-1]};
+        int maxCnt = dp[N][M], maxRest = 0;
+        //枚举出捕获maxCnt个精灵球，消耗的最小生命值
+        for (int i = 0; i <= M; i++) {
+            if (dp[N][i] == maxCnt) {
+                maxRest = i;
+                break;
+            }
+        }
+        //最后+1，把之前的加回来
+        return new int[]{maxCnt, M+1-maxRest};
     }
 }
