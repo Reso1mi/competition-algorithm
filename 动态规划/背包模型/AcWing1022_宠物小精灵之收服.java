@@ -54,8 +54,9 @@
 输出样例2：
 0 100
  */
-import java.util.*;
-import java.io.*;
+import java.io.*;// petr的输入模板
+import java.util.*; 
+import java.math.*; // 不是大数题可以不要这个
 //本地测试
 public class AcWing1022_宠物小精灵之收服 {
     public static void main(String... args) throws Exception{
@@ -65,42 +66,139 @@ public class AcWing1022_宠物小精灵之收服 {
 
 class Main {
 
+    public static PrintWriter out = new PrintWriter(new OutputStreamWriter(System.out));
+
     public static void main(String... args) throws Exception {
-        //Scanner sc = new Scanner(System.in);
-        Scanner sc = new Scanner(new File("input.txt"));
-        int N = sc.nextInt(); //精灵球个数
-        int M = sc.nextInt()-1; //皮卡丘体力值
-        int K = sc.nextInt();
+        //InputReader in = new InputReader(System.in);
+        InputReader in = new InputReader(new FileInputStream("./input.txt"));
+        int N = in.nextInt(); //精灵球个数
+        int M = in.nextInt()-1; //皮卡丘体力值
+        int K = in.nextInt();
         int[] costN = new int[K];
         int[] costM = new int[K];
         for (int i = 0; i < K; i++) {
-            costN[i] = sc.nextInt();
-            costM[i] = sc.nextInt();
+            costN[i] = in.nextInt();
+            costM[i] = in.nextInt();
         }
-        int[] res = solve(N, M, K, costN, costM);
-        System.out.println(res[0]+" "+res[1]);
+        int[] res = solveOpt(N, M, K, costN, costM);
+        out.println(res[0]+" "+res[1]);
+        out.flush();
+        out.close();
     }
 
-    //多维01背包
+    //多维01背包 O(N*M*K) 5 x 10^7
     public static int[] solve(int N, int M, int K, int[] costN, int[] costM) {
         //dp[i][j]: 消耗最多i个精灵球和最多j点生命值，能捕捉的最多精灵数量
         int[][] dp = new int[N+1][M+1];
         for (int i = 0; i < K; i++) {
             for (int j = N; j >= costN[i]; j--) {
                 for (int k = M; k >= costM[i]; k--) {
+                    //注意这里N和M的cost都满足才能计算
                     dp[j][k] = Math.max(dp[j][k], dp[j-costN[i]][k-costM[i]] + 1);
                 }
             }
         }
-        int maxCnt = dp[N][M], maxRest = 0;
+        int maxCnt = dp[N][M], minCost = 0;
         //枚举出捕获maxCnt个精灵球，消耗的最小生命值
         for (int i = 0; i <= M; i++) {
             if (dp[N][i] == maxCnt) {
-                maxRest = i;
+                minCost = i;
                 break;
             }
         }
         //最后+1，把之前的加回来
-        return new int[]{maxCnt, M+1-maxRest};
+        return new int[]{maxCnt, M+1-minCost};
+    }
+
+    //交换维度，降低复杂度，O(K^2*N) = 10^7 还可以优化成 k^2*m
+    public static int[] solveOpt(int N, int M, int K, int[] costN, int[] costM) {
+        //dp[i][j]: 捕捉i个精灵，消耗j个精灵球，消耗的最少的体力值
+        int[][] dp = new int[K+1][N+1];
+        for (int i = 1; i <= K; i++) {
+            for (int j = 0; j <= N; j++) {
+               dp[i][j] = 0x3f3f3f3f; 
+            }
+        }
+        for (int i = 0; i < K; i++) {
+            for (int j = K; j >= 1; j--) {
+                for (int k = N; k >= costN[i]; k--) {
+                    if (dp[j-1][k-costN[i]] + costM[i] <= M) {
+                        dp[j][k] = Math.min(dp[j][k], dp[j-1][k-costN[i]]+costM[i]);
+                    }
+                }
+            }
+        }
+        int maxCnt = 0;
+        for (int i = K; i >= 0; i--) {
+            if (dp[i][N] <= M) {
+                maxCnt = i;
+                break;
+            }
+        }
+        //最后+1，把之前的加回来
+        return new int[]{maxCnt, M+1-dp[maxCnt][N]};
+    }    
+}
+
+
+class InputReader {
+
+    public BufferedReader reader;
+    
+    public StringTokenizer tokenizer;
+
+    public InputReader(InputStream stream) {
+        //char[32768]
+        reader = new BufferedReader(new InputStreamReader(stream), 32768);
+        tokenizer = null;
+    }
+
+    //默认以" "作为分隔符，读一个
+    public String next() {
+        while (tokenizer == null || !tokenizer.hasMoreTokens()) {
+            try {
+                tokenizer = new StringTokenizer(reader.readLine());
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        }
+        return tokenizer.nextToken();
+    }
+
+    //有的题目不给有多少组测试用例，只能一直读，读到结尾，需要自己判断结束
+    //该函数也会读取一行，并初始化tokenizer，后序直接nextInt..等就可以读到该行
+    public boolean EOF() {
+        String str = null;
+        try {
+            str = reader.readLine();
+            if (str == null) {
+                return true;
+            }
+            //创建tokenizer
+            tokenizer = new StringTokenizer(str);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        return false;
+    }
+
+    int nextInt(){
+        return Integer.parseInt(next());
+    }
+    
+    long nextLong(){
+        return Long.parseLong(next());
+    }
+    
+    double nextDouble(){
+        return Double.parseDouble(next());
+    }
+    
+    BigInteger nextBigInteger(){
+        return new BigInteger(next());
+    }
+
+    BigDecimal nextBigDecimal(){
+        return new BigDecimal(next());
     }
 }
