@@ -28,22 +28,27 @@ import java.io.*;
 import java.util.*;
 
 class Main {
-    public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
-        int n = sc.nextInt();
-        int m = sc.nextInt();
-        int[] v = new int[n];
-        int[] w = new int[n];
-        int[] s = new int[n];
+    public static void main(String[] args) throws Exception {
+        BufferedReader bf = new BufferedReader(new InputStreamReader(System.in));
+        int[] in = read(bf);
+        int n = in[0], m = in[1];
+        LinkedList<Integer> queue = new LinkedList<>();
         for (int i = 0; i < n; i++) {
-            v[i] = sc.nextInt();
-            w[i] = sc.nextInt();
-            s[i] = sc.nextInt();
+            int[] temp = read(bf);
+            int v = temp[0], w = temp[1], s = temp[2];
+            for (int r = 0; r < v; r++) {
+                
+            }
         }
-        System.out.println(solve(m, v, w, s));
+        
     }
 
-    //每个物品有k个数量的限制后，问题就变成了01背包
+    public static int[] read(BufferedReader bf) throws Exception {
+        return Arrays.stream(bf.readLine().split(" ")).mapToInt(Integer::parseInt).toArray();
+    }
+
+
+    //暴力解法，每个物品有k个数量的限制后，直接当成01背包做
     //dp[i][j] = Max(dp[i-1][j], dp[i-1][j-v[i]]+w[i], dp[i-1][j-2*v[i]]+2*w[i], ... dp[i-1][j-s[i]*v[i]] + s[i]*w[i]) 
     public static int solve (int m, int[] v, int[] w, int[] s) {
         int n = v.length;

@@ -28,8 +28,8 @@ class Main {
     public static int solve(int N) {
         //dp[i][j]: 考虑前i本书，凑齐j价值的种类数
         int[][] dp = new int[5][N+1];
-        //dp[i][j] = dp[i-1][j] + dp[i-1][j-c[i]] + dp[i-1][j-2*c[i]] + ... + dp[i-1][k*c[i]]
-        //dp[i][j-c[i]] = dp[i-1][j-c[i]] + dp[i-1][j-2*c[i]] + ... + dp[i-1][k*c[i]]
+        //dp[i][j] = dp[i-1][j] + dp[i-1][j-c[i]] + dp[i-1][j-2*c[i]] + ... + dp[i-1][j-k*c[i]]
+        //dp[i][j-c[i]] = dp[i-1][j-c[i]] + dp[i-1][j-2*c[i]] + ... + dp[i-1][j-k*c[i]]
         //dp[i][j] = dp[i-1][j] + dp[i][j-c[i]]
         dp[0][0] = 1;
         for (int i = 1; i <= 4; i++) {
