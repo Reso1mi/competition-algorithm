@@ -56,7 +56,7 @@ class Main {
                     }
                     //同余的数组元素数量可能超过同一物品的使用次数s
                     //区间内使用次数: ((r+k*v)-(r+q.first()[1]*v)) / v = k-q.first()[1]
-                    if (!queue.isEmpty() && k - queue.getFirst()[1] > s) {
+                    while (!queue.isEmpty() && k - queue.getFirst()[1] > s) {
                         queue.removeFirst();
                     }
                     queue.addLast(new int[]{val, k});

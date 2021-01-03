@@ -28,19 +28,34 @@ import java.io.*;
 import java.util.*;
 
 class Main {
+
+    //单调队列优化多重背包
     public static void main(String[] args) throws Exception {
         BufferedReader bf = new BufferedReader(new InputStreamReader(System.in));
         int[] in = read(bf);
         int n = in[0], m = in[1];
-        LinkedList<Integer> queue = new LinkedList<>();
-        for (int i = 0; i < n; i++) {
+        int[][] dp = new int[n+1][m+1];
+        LinkedList<int[]> queue = new LinkedList<>();
+        for (int i = 1; i <= n; i++) {
             int[] temp = read(bf);
             int v = temp[0], w = temp[1], s = temp[2];
+            //枚举余数
             for (int r = 0; r < v; r++) {
-                
+                queue.clear();
+                for (int k = 0; r+k*v <= m; k++) {
+                    int val = dp[i-1][r+k*v] - k*w;
+                    while (!queue.isEmpty() && val > queue.getLast()[0]) {
+                        queue.removeLast();
+                    }
+                    while (!queue.isEmpty() && k-queue.getFirst()[1] > s) {
+                        queue.removeFirst();
+                    }
+                    queue.addLast(new int[]{val, k});
+                    dp[i][r+k*v] = queue.getFirst()[0] + k*w;
+                }
             }
         }
-        
+        System.out.println(dp[n][m]);
     }
 
     public static int[] read(BufferedReader bf) throws Exception {
