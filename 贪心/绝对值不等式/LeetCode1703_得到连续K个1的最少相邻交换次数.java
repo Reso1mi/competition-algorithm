@@ -30,7 +30,7 @@ class Solution {
         int left = 0;
         for (int right = k-1; right < m; right++) {
             int mid = left+(right-left)/2; //左中位数
-            res = Math.min(res, w[mid]*(2*mid-left-right)-(sum[mid]-sum[left])+(sum[right+1]-sum[mid+1]));
+            res = Math.min(res, w[mid]*(2*mid-left-right+1)-(sum[mid+1]-sum[left])+(sum[right+1]-sum[mid+1]));
             left++;
         }
         return res;
