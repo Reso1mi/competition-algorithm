@@ -35,9 +35,3 @@ class Main {
         return Arrays.stream(br.readLine().split(" ")).mapToInt(Integer::parseInt).toArray();
     }
 }
-
-public class D {
-    public static void main(String[] args) throws Exception {
-        new Main().main();
-    }
-}
