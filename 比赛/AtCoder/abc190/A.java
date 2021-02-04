@@ -10,10 +10,13 @@ class Main {
         int[] in = read(br);
         int A = in[0], B = in[1], C = in[2];
         if (C == 0) {
-            
+            if (A-1 >= B) out.println("Takahashi");
+            else out.println("Aoki");
         } else {
-
+            if (B-1 >= A) out.println("Aoki");
+            else out.println("Takahashi");
         }
+        out.flush();
     }
 
     public static int[] read(BufferedReader br) throws Exception {

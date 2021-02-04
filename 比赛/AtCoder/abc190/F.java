@@ -33,19 +33,12 @@ class Main {
         int N = read(br)[0];
         int[] A = read(br);
         tree = new int[N+1];
-        //离散化（这题不用离散化，这里属于吃饱了撑了）
-        int[][] temp = new int[N][2];
-        for (int i = 0; i < N; i++) temp[i] = new int[]{A[i], i};
-        Arrays.sort(temp, (t1, t2)->t1[0]-t2[0]);
-        int[] rank = new int[N];
-        for (int i = 0; i < N; i++) {
-            rank[temp[i][1]] = i+1;
-        }
+        //这题不用离散化，序列值就是Rank
         long res = 0;
         //树状数组或者归并都可
         for (int i = N-1; i >= 0; i--) {
-            add(rank[i]+1, 1);
-            res += query(rank[i]);
+            add(A[i]+1, 1);
+            res += query(A[i]);
         }
         out.println(res);
         //-k+(N-1-k) = N-1-2*k
@@ -61,7 +54,7 @@ class Main {
     }
 }
 
-//通用的解法，对于任意序列执行上述操作都OK
+// 更加通用的解法，对于任意序列执行上述操作都OK
 // class Main {
 
 //     static int[] tree;
