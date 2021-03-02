@@ -98,11 +98,10 @@ class Main {
 //         int[][] dp = new int[Z+1][N+1];
 //         //将依赖关系进行分组枚举所有情况，题目中有一条关键信息就是附件最多只有两件
 //         //adj[0]就是所有的主件
-//         // N = 10^4
 //         for (int i = 1; i <= Z; i++) {
 //             int pi = adj[0].get(i-1); //pi不是必选，但是要选pi的附件，pi就必选了
 //             for (int j = N; j >= 0; j--) {
-//                 dp[i][j] = dp[i-1][j];
+//                 dp[i][j] = dp[i-1][j]; //不选当前主件
 //                 int s = adj[pi] == null ? 0 : adj[pi].size(); //附件个数,0,1,2
 //                 //枚举当前组内的所有情况
 //                 for (int k = 0; k < (1<<s); k++) {
@@ -117,7 +116,8 @@ class Main {
 //                         }
 //                     }
 //                     if (j >= sv) {
-//                         dp[i][j] = Math.max(dp[i-1][j], Math.max(dp[i][j],dp[i-1][j-sv] + t));
+//                         //注意这里应该和dp[i][j]比较
+//                         dp[i][j] = Math.max(dp[i][j], dp[i-1][j-sv] + t);
 //                     }
 //                 }
 //             }
