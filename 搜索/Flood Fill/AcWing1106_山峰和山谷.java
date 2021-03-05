@@ -67,6 +67,8 @@ class Main {
         System.out.println(up + " " + down);
     }
 
+    //对这个点进行广搜，并且进行标记
+    //返回值: -1山谷, 0啥也不是, 1山峰, 2既是山峰也是山谷
     public static int bfs(int x, int y) {
         queue.clear();
         queue.add(new Pair(x, y));
@@ -90,9 +92,11 @@ class Main {
                 }
             }
         }
+        //up和down同时满足，说明周围既有比当前大的，也有比当前小的
         if (up && down) return 0;
         if (up) return 1;
         if (down) return -1;
+        //up和down都不满足，所有元素一样，既是山峰也是山谷
         return 2;
     }
 
