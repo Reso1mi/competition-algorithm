@@ -1,12 +1,12 @@
 # Competition-algorithm
 一些竞赛性质的算法学习，题目大多来源于yxc的[算法提高课](https://www.acwing.com/activity/content/16/)，同时也有一些自己的理解和额外整理
 
-# 比赛
-## AtCoder
+## 比赛
+### AtCoder
 - [ABC190](https://imlgw.top/2021/02/04/abc190-ti-jie-bao-gao/)
 - [ABC189](https://imlgw.top/2021/01/28/abc189-ti-jie-bao-gao/)
 - [ABC188](https://imlgw.top/2021/01/21/abc188-ti-jie-bao-gao/)
-## LeetCode
+### LeetCode
 - [42th双周赛](https://imlgw.top/2021/01/06/li-kou-42th-shuang-zhou-sai/)
 - [220th周赛](https://imlgw.top/2020/12/29/li-kou-220th-zhou-sai/)
 ## 动态规划
@@ -41,7 +41,7 @@
 
 ## 图论
 - [常见最短路模板](https://imlgw.top/2021/03/17/tu-lun-chang-jian-zui-duan-lu-suan-fa-mo-ban/)
-- 单源最短路的建图方式
+- [单源最短路的建图方式](https://imlgw.top/2021/03/28/tu-lun-dan-yuan-zui-duan-lu-de-jian-tu-fang-shi/)
 - 单源最短路的综合应用
 - 单源最短路的扩展应用
 - Floyd算法
