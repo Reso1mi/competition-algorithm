@@ -13,6 +13,7 @@
 - [数字三角形模型](https://imlgw.top/2020/11/09/dp-shu-zi-san-jiao-xing-mo-xing/)
 - [最长上升子序列模型](https://imlgw.top/2020/11/14/dp-zui-chang-shang-sheng-zi-xu-lie-mo-xing/)
 - [背包模型](https://imlgw.top/2021/03/02/dp-bei-bao-mo-xing/)
+- [计数DP](https://imlgw.top/2021/04/09/dp-ji-shu-dp/)
 - 状态机模型
 - 状态压缩DP
 - 区间DP
