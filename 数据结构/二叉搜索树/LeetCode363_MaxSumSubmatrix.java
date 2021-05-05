@@ -1,7 +1,6 @@
 import java.util.*;
 
 class Solution {
-    
     public int maxSumSubmatrix(int[][] matrix, int k) {
         int m = matrix.length, n = matrix[0].length;
         int[][] s = new int[m+1][n+1];
@@ -21,6 +20,7 @@ class Solution {
                     int rv = s[d][r] - s[u-1][r];
                     Integer lv = set.ceiling(rv-k);
                     set.add(rv);
+                    if (lv == null) continue;
                     res = Math.max(res, rv-lv);
                 }
             }
