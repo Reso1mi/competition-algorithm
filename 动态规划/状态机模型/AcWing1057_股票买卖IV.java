@@ -23,17 +23,21 @@ class Main {
             return;
         }
         // dp[N][K][2]的写法
+        // 前i天，交易次数不超过j，第i天状态为k（0不持有，1持有）
         int[][][] dp = new int[N+1][K+1][2];
         for (int i = 0; i <= N; i++) {
             for (int j = 0; j <= K; j++) {
                 Arrays.fill(dp[i][j], INF);
             }
+            // 不交易就不会持有，收益永远为0
             dp[i][0][0] = 0;
         }
         int res = 0;
         for (int i = 1; i <= N; i++) {
             for (int j = 1; j <= K; j++) {
                 dp[i][j][0] = Math.max(dp[i-1][j][1] + price[i-1], dp[i-1][j][0]);
+                // 根据题目限制，当想要再次买入的时候，应该从上一次交易完成后的状态转移过来
+                // 而买入卖出为一次完整交易，所以上一次交易完成的状态应该为不持有股票
                 dp[i][j][1] = Math.max(dp[i-1][j-1][0] - price[i-1], dp[i-1][j][1]);
                 res = Math.max(dp[i][j][0], res);
             }
