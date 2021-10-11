@@ -13,21 +13,30 @@ var w [][]int
 var INF = int(0x3f3f3f3f)
 
 func main() {
-	f, _ := os.Open("./input.txt")
-	reader := bufio.NewReader(f)
-	// reader := bufio.NewReader(os.Stdin)
+	// f, _ := os.Open("./input.txt")
+	// reader := bufio.NewReader(f)
+	reader := bufio.NewReader(os.Stdin)
 	// writer := bufio.NewWriter(os.Stdout)
 	t := ReadArray(reader)
 	n, m := t[0], t[1]
 	w = make([][]int, n+1)
 	for i := 0; i <= n; i++ {
 		w[i] = make([]int, n+1)
+		for j := 0; j <= n; j++ {
+			w[i][j] = INF
+		}
 	}
 	for i := 0; i < m; i++ {
 		t := ReadArray(reader)
-		w[t[0]][t[1]] = t[2]
+		// 有重边，需要注意
+		w[t[0]][t[1]] = Min(w[t[0]][t[1]], t[2])
 	}
-	fmt.Println(Dijkstra(n))
+	res := Dijkstra(n)
+	if res == INF {
+		fmt.Println(-1)
+	} else {
+		fmt.Println(res)
+	}
 }
 
 func Dijkstra(n int) int {
@@ -41,7 +50,6 @@ func Dijkstra(n int) int {
 		idx: 1,
 		val: 0,
 	})
-	// vis[0] = true
 	dis[1] = 0
 	for len(pq) > 0 {
 		cur := heap.Pop(&pq).(*Node)
@@ -89,6 +97,13 @@ func (h *NodeHeap) Pop() interface{} {
 	x := old[n-1]
 	*h = old[0 : n-1]
 	return x
+}
+
+func Min(a, b int) int {
+	if a < b {
+		return a
+	}
+	return b
 }
 
 func ReadLine(reader *bufio.Reader) string {
