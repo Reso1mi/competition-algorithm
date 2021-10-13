@@ -15,9 +15,9 @@ var w [][]int
 var INF = int(0x3f3f3f3f)
 
 func main() {
-	// f, _ := os.Open("./input.txt")
-	// reader := bufio.NewReader(f)
-	reader := bufio.NewReader(os.Stdin)
+	f, _ := os.Open("./input.txt")
+	reader := bufio.NewReader(f)
+	// reader := bufio.NewReader(os.Stdin)
 	// writer := bufio.NewWriter(os.Stdout)
 	t := ReadArray(reader)
 	M, N := t[0], t[1]
@@ -47,9 +47,10 @@ func main() {
 	}
 	var res = INF
 	// 枚举区间
-	for i, j := minL, minL+M; j <= maxL; i, j = i+1, j+1 {
+	for i, j := minL, minL+M; j <= Max(maxL, minL+M); i, j = i+1, j+1 {
 		res = Min(res, Dijkstra(N, i, j))
 	}
+	// fmt.Println(minL, maxL, Dijkstra(N, minL, maxL))
 	fmt.Println(res)
 }
 
@@ -78,16 +79,18 @@ func Dijkstra(n int, lt int, rt int) int {
 		idx: 0,
 		val: 0,
 	})
-	// vis[0] = true
 	dis[0] = 0
 	for len(pq) > 0 {
 		cur := heap.Pop(&pq).(*Node)
 		i, v := cur.idx, cur.val
-		if rank[i] > rt || rank[i] < lt || vis[i] {
+		if vis[i] {
 			continue
 		}
 		vis[i] = true
 		for j := 1; j <= n; j++ {
+			if rank[j] > rt || rank[j] < lt {
+				continue
+			}
 			if w[i][j] == INF {
 				continue
 			}
