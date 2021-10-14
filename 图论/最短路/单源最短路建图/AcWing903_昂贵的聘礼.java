@@ -12,6 +12,7 @@ class Main {
         }
     }
 
+    // 比较怪的做法
     public static void main(String... args) throws Exception {
         PrintWriter out = new PrintWriter(new BufferedOutputStream(System.out));
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
@@ -29,37 +30,38 @@ class Main {
         for (int i = 1; i <= N; i++) {
             int[] plx = read(br);
             price[i] = plx[0]; rank[i] = plx[1];
+            w[0][i] = price[i];
             for (int j = 1; j <= plx[2]; j++) {
                 int[] tv = read(br);
-                w[i][tv[0]] = tv[1];
+                w[tv[0]][i] = tv[1];
             }
         }
         int res = INF;
         int[] dis = new int[N+1];
         boolean[] vis = new boolean[N+1];
         // pq中存储节点的编号，以及路径上的最大和最小等级
-        PriorityQueue<Node> pq = new PriorityQueue<>((a,b)->a.v-b.v);
+        PriorityQueue<Node> pq = new PriorityQueue<>((a,b)->b.v-a.v);
         Arrays.fill(dis, INF);
-        dis[1] = 0; pq.add(new Node(1, 0, rank[1], rank[1]));
+        dis[0] = 0; price[0] = INF;
+        pq.add(new Node(0, 0, rank[1], rank[1]));
         while (!pq.isEmpty()) {
             Node node = pq.poll();
             int i = node.i, v = node.v;
             if (vis[i]) continue;
-            vis[i] = true;
+            // vis[i] = true;
             // 在当前位置停止替换
-            res = Math.min(res, dis[i]+price[i]);
+            // res = Math.min(res, dis[i]+w[i][1]);
             for (int j = 1; j <= N; j++) {
                 if (w[i][j] == INF) continue;
                 // 等级限制无法交易
-                if (Math.abs(rank[j]-node.min) > M || 
-                    Math.abs(rank[j]-node.max) > M ) continue; 
+                if ((Math.abs(rank[j]-node.min) > M || Math.abs(rank[j]-node.max) > M )) continue; 
                 if (dis[j] > v + w[i][j]) {
                     dis[j] = v + w[i][j];
                     pq.add(new Node(j, dis[j], Math.max(rank[j], node.max), Math.min(rank[j], node.min)));
                 }
             }
         }
-        out.println(res);
+        out.println(dis[1]);
         out.flush();
     }
 

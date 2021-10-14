@@ -15,13 +15,12 @@ var w [][]int
 var INF = int(0x3f3f3f3f)
 
 func main() {
-	f, _ := os.Open("./input.txt")
-	reader := bufio.NewReader(f)
-	// reader := bufio.NewReader(os.Stdin)
+	// f, _ := os.Open("./input.txt")
+	// reader := bufio.NewReader(f)
+	reader := bufio.NewReader(os.Stdin)
 	// writer := bufio.NewWriter(os.Stdout)
 	t := ReadArray(reader)
 	M, N := t[0], t[1]
-	price = make([]int, N+1)
 	rank = make([]int, N+1)
 	w = make([][]int, N+1)
 	for i := 0; i <= N; i++ {
@@ -30,13 +29,9 @@ func main() {
 			w[i][j] = INF
 		}
 	}
-	minL, maxL := INF, -INF
 	for i := 1; i <= N; i++ {
 		plx := ReadArray(reader)
-		price[i] = plx[0]
 		rank[i] = plx[1]
-		minL = Min(rank[i], minL)
-		maxL = Max(rank[i], maxL)
 		// 虚拟源点，连接所有节点
 		w[0][i] = plx[0]
 		for j := 0; j < plx[2]; j++ {
@@ -46,26 +41,11 @@ func main() {
 		}
 	}
 	var res = INF
-	// 枚举区间
-	for i, j := minL, minL+M; j <= Max(maxL, minL+M); i, j = i+1, j+1 {
-		res = Min(res, Dijkstra(N, i, j))
+	// 枚举区间 [rank[1]-m, rank[1]+m]
+	for i := rank[1] - M; i <= rank[1]; i++ {
+		res = Min(res, Dijkstra(N, i, i+M))
 	}
-	// fmt.Println(minL, maxL, Dijkstra(N, minL, maxL))
 	fmt.Println(res)
-}
-
-func Min(a, b int) int {
-	if a < b {
-		return a
-	}
-	return b
-}
-
-func Max(a, b int) int {
-	if a > b {
-		return a
-	}
-	return b
 }
 
 func Dijkstra(n int, lt int, rt int) int {
@@ -101,6 +81,13 @@ func Dijkstra(n int, lt int, rt int) int {
 		}
 	}
 	return dis[1]
+}
+
+func Min(a, b int) int {
+	if a < b {
+		return a
+	}
+	return b
 }
 
 type Node struct {
