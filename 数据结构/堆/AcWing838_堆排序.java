@@ -11,15 +11,15 @@ class Main {
         int[] t = read(br);
         N = t[0]; M = t[1];
         w = read(br);
-        for (int i = N/2+1; i >= 0; i--) {
+        for (int i = (N-1)/2; i >= 0; i--) {
             down(i, N);
         }
         List<Integer> res = new ArrayList<>();
         int tail = N-1;
-        for (int i = 0; i < M; i++) {
-            swap(i, tail--);
-            down(i, tail);
-            res.add(w[i]);
+        for (int _i = 0; _i < M; _i++) {
+            res.add(w[0]);
+            swap(0, tail);
+            down(0, tail--);
         }
         res.forEach(r -> out.print(r + " "));
         out.flush();
@@ -30,7 +30,7 @@ class Main {
         while (i*2+1 < len) {
             int left = i*2+1;
             int right = left + 1;
-            int min = right < len && w[left] <= w[right] ? right : left;
+            int min = right < len && w[right] <= w[left] ? right : left;
             if (w[i] <= w[min]) {
                 return;
             }
