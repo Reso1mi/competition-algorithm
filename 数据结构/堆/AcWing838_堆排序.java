@@ -11,7 +11,7 @@ class Main {
         int[] t = read(br);
         N = t[0]; M = t[1];
         w = read(br);
-        for (int i = (N-1)/2; i >= 0; i--) {
+        for (int i = N/2; i >= 0; i--) {
             down(i, N);
         }
         List<Integer> res = new ArrayList<>();
@@ -39,6 +39,20 @@ class Main {
             left = i*2+1;
             right = left+1;
         }
+    }
+
+    //下移
+    public static void downdown(int i, int len) {
+        int left = i*2+1;
+        int right = left + 1;
+        if (left >= len) return;
+        int min = right < len && w[right] <= w[left] ? right : left;
+        if (w[i] <= w[min]) {
+            return;
+        }
+        swap(i, min);
+        downdown(min, len);
+        
     }
 
     public static void swap(int i, int j) {
