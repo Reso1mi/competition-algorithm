@@ -11,7 +11,7 @@ import (
 var MOD = int(1e9 + 7)
 
 func main() {
-	f, _ := os.Open("../input.txt")
+	f, _ := os.Open("./input.txt")
 	reader := bufio.NewReader(f)
 	// reader := bufio.NewReader(os.Stdin)
 	n := ReadInt(reader)
