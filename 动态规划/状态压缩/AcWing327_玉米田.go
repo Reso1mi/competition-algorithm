@@ -8,15 +8,6 @@ import (
     "strings"
 )
 
-/*
-2 3
-1 1 1
-0 1 0
-
-1 1 0
-1 0 0
-*/
-
 func main() {
     f, _ := os.Open("./input.txt")
     reader := bufio.NewReader(f)
@@ -24,33 +15,28 @@ func main() {
     in := ReadArr(reader)
     // 1 <= m,n <= 12
     m, n := in[0], in[1]
-    grid := make([][]int, m+1)
+    w := make([]int, m+1)
     MOD := int(1e8)
     for i := 1; i <= m; i++ {
-        grid[i] = ReadArr(reader)
+        a, b := ReadArr(reader), 0
+        for i := 0; i < len(a); i++ {
+            b = b*2 + a[i]
+        }
+        w[i] = b
     }
-    // 预处理每一行的合法状态
+
+    // 预处理每一行的所有合法状态
     state := make([][]int, m+1)
     state[0] = append(state[0], 0)
     for i := 1; i <= m; i++ {
         for s := 0; s < (1 << n); s++ {
-            if !valid(s) {
+            // s|w[i] != w[i] 说明在0处种了玉米
+            if !valid(s) || (s|w[i] != w[i]) {
                 continue
             }
-            flag := true
-            for j := 0; j < n; j++ {
-                if grid[i][j] == 0 && s&(1<<(n-j-1)) != 0 {
-                    flag = false
-                    break
-                }
-            }
-            if flag {
-                state[i] = append(state[i], s)
-            }
+            state[i] = append(state[i], s)
         }
     }
-
-    // fmt.Println(state)
 
     // dp[i][j]: 只摆放前i行，最后一行状态为j，有多少种方案
     dp := make([][]int, m+1)
@@ -62,6 +48,7 @@ func main() {
     for i := 1; i <= m; i++ {
         for _, s := range state[i] {
             for _, t := range state[i-1] {
+                // 上下两行不兼容
                 if s&t != 0 {
                     continue
                 }
@@ -70,13 +57,7 @@ func main() {
         }
     }
     res := 0
-    // for i := 1; i <= m; i++ {
-    //     for j := 1; j < (1 << n); j++ {
-    //         res = (res + dp[i][j]) % MOD
-    //     }
-    // }
-    // fmt.Println(res + 1)
-    for s := 0; s < (1 << n); s++ {
+    for s := 0; s < 1<<n; s++ {
         res = (res + dp[m][s]) % MOD
     }
     fmt.Println(res)
