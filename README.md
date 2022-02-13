@@ -14,7 +14,7 @@
 - [最长上升子序列模型](https://imlgw.top/2020/11/14/dp-zui-chang-shang-sheng-zi-xu-lie-mo-xing/)
 - [背包模型](https://imlgw.top/2021/03/02/dp-bei-bao-mo-xing/)
 - [计数DP](https://imlgw.top/2021/04/09/dp-ji-shu-dp/)
-- 状态机模型
+- [状态机模型](https://imlgw.top/2022/01/01/2fc471b9/)
 - 状态压缩DP
 - 区间DP
 - 树形DP
@@ -30,8 +30,8 @@
 - 最短路模型
 - 多源BFS
 - 最小步数模型
-- 双端队列广搜
-- 双向广搜
+- [双端队列广搜(0-1BFS)](https://imlgw.top/2021/08/21/91f9d060/)
+- [双向广搜](https://imlgw.top/2021/09/19/b9d77e2c/)
 - A*
 - DFS之连通性模型
 - DFS之搜索顺序
