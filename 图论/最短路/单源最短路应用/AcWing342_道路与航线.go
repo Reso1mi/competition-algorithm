@@ -2,6 +2,7 @@ package main
 
 import (
 	"bufio"
+	"container/list"
 	"fmt"
 	"os"
 	"strconv"
@@ -55,21 +56,25 @@ func main() {
 		dis[i] = INF
 	}
 
-	var queue []int
-	queue = append(queue, S)
+	queue := list.New()
+	queue.PushBack(S)
 	vis[S] = true
 	dis[S] = 0
 
-	for len(queue) > 0 {
-		i := queue[0]
-		queue = queue[1:]
+	for queue.Len() > 0 {
+		i := queue.Front().Value.(int)
+		queue.Remove(queue.Front())
 		vis[i] = false
 		for j := h[i]; j != -1; j = ne[j] {
 			if dis[e[j]] > dis[i]+w[j] {
 				dis[e[j]] = dis[i] + w[j]
 				if !vis[e[j]] {
 					vis[e[j]] = true
-					queue = append(queue, e[j])
+					if queue.Len() > 0 && dis[queue.Front().Value.(int)] > dis[e[j]] {
+						queue.PushFront(e[j])
+					} else {
+						queue.PushBack(e[j])
+					}
 				}
 			}
 		}
