@@ -6,7 +6,6 @@ class Main {
     public static void main(String... args) throws Exception {
         PrintWriter out = new PrintWriter(new BufferedOutputStream(System.out));
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        int T = Integer.valueOf(br.readLine());
 
         out.flush();
     }

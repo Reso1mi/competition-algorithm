@@ -1,2 +1,3 @@
 *.class
 input.txt
+.DS_Store
