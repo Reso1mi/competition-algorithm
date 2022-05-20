@@ -8,15 +8,12 @@ import (
 )
 
 func main() {
-	f, _ := os.Open("./input.txt")
-	reader := bufio.NewReader(f)
-	// reader := bufio.NewReader(os.Stdin)
+	reader := bufio.NewReader(os.Stdin)
 	writer := bufio.NewWriter(os.Stdout)
 	t := ReadLine(reader)
-	// n, _ := strconv.Atoi(t)
-	writer.WriteString("Resolmi")
-	writer.WriteString(t)
-
+	n, _ := strconv.Atoi(t)
+	writer.WriteString("Resolmi\n")
+	writer.WriteString(strconv.Itoa(n))
 	writer.Flush()
 }
 
@@ -65,4 +62,8 @@ func readArray(reader *bufio.Reader) []int {
 		nums[i], _ = strconv.Atoi(s)
 	}
 	return nums
+}
+
+func init() {
+	os.Stdin, _ = os.Open("./input.txt")
 }
