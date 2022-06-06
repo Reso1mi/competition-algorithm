@@ -3,17 +3,18 @@
 
 ## 比赛
 ### AtCoder
-- [ABC190](https://imlgw.top/2021/02/04/abc190-ti-jie-bao-gao/)
-- [ABC189](https://imlgw.top/2021/01/28/abc189-ti-jie-bao-gao/)
-- [ABC188](https://imlgw.top/2021/01/21/abc188-ti-jie-bao-gao/)
+- [ABC190](https://imlgw.top/2021/02/04/891c3448/)
+- [ABC189](https://imlgw.top/2021/01/28/e9dbbdad/)
+- [ABC188](https://imlgw.top/2021/01/21/9edc8d3b/)
 ### LeetCode
-- [42th双周赛](https://imlgw.top/2021/01/06/li-kou-42th-shuang-zhou-sai/)
-- [220th周赛](https://imlgw.top/2020/12/29/li-kou-220th-zhou-sai/)
+- [42th双周赛](https://imlgw.top/2021/01/06/f0b3824b/)
+- [220th周赛](https://imlgw.top/2020/12/29/8e50a4df/)
+- [295th周赛](https://imlgw.top/2022/06/01/1cbd408/)
 ## 动态规划
-- [数字三角形模型](https://imlgw.top/2020/11/09/dp-shu-zi-san-jiao-xing-mo-xing/)
-- [最长上升子序列模型](https://imlgw.top/2020/11/14/dp-zui-chang-shang-sheng-zi-xu-lie-mo-xing/)
-- [背包模型](https://imlgw.top/2021/03/02/dp-bei-bao-mo-xing/)
-- [计数DP](https://imlgw.top/2021/04/09/dp-ji-shu-dp/)
+- [数字三角形模型](https://imlgw.top/2020/11/09/22c967e1/)
+- [最长上升子序列模型](https://imlgw.top/2020/11/14/f00d00a3/)
+- [背包模型](https://imlgw.top/2021/03/02/e60f310b/)
+- [计数DP](https://imlgw.top/2021/04/09/b34c4165/)
 - [状态机模型](https://imlgw.top/2022/01/01/2fc471b9/)
 - 状态压缩DP
 - 区间DP
@@ -22,11 +23,11 @@
 - 单调队列优化DP
 - 斜率优化DP
 ## 贪心
-- [绝对值不等式](https://imlgw.top/2021/01/10/tan-xin-jue-dui-zhi-bu-deng-shi/)
+- [绝对值不等式](https://imlgw.top/2021/01/10/6134a4bc/)
 - 排序不等式
 - 区间问题
 ## 搜索
-- [Flood Fill](https://imlgw.top/2021/03/25/sou-suo-flood-fill/)
+- [Flood Fill](https://imlgw.top/2021/03/25/89c67f8e/)
 - 最短路模型
 - 多源BFS
 - 最小步数模型
@@ -41,10 +42,10 @@
 - IDA*
 
 ## 图论
-- [常见最短路模板](https://imlgw.top/2021/03/17/tu-lun-chang-jian-zui-duan-lu-suan-fa-mo-ban/)
-- [单源最短路的建图方式](https://imlgw.top/2021/03/28/tu-lun-dan-yuan-zui-duan-lu-de-jian-tu-fang-shi/)
-- 单源最短路的综合应用
-- 单源最短路的扩展应用
+- [常见最短路模板](https://imlgw.top/2021/03/17/c163e5c9/)
+- [单源最短路的建图方式](https://imlgw.top/2021/03/28/8e9b2c41/)
+- [单源最短路的综合应用](https://imlgw.top/2022/05/20/d2494640/)
+- [单源最短路的扩展应用](https://imlgw.top/2022/05/20/d2494640/)
 - Floyd算法
 - 最小生成树
 - 最小生成树的扩展应用
@@ -58,7 +59,7 @@
 - 拓扑排序
 
 ## 高级数据结构
-- [并查集](https://imlgw.top/2020/02/02/bing-cha-ji/)
+- [并查集](https://imlgw.top/2020/02/02/c517589e/)
 - 树状数组
 - 线段树
 - 可持久化数据结构

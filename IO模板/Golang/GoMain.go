@@ -2,19 +2,17 @@ package main
 
 import (
 	"bufio"
+	. "fmt"
 	"os"
-	"strconv"
-	"strings"
 )
 
 func main() {
-	reader := bufio.NewReader(os.Stdin)
-	writer := bufio.NewWriter(os.Stdout)
-	t := ReadLine(reader)
-	n, _ := strconv.Atoi(t)
-	writer.WriteString("Resolmi\n")
-	writer.WriteString(strconv.Itoa(n))
-	writer.Flush()
+	_r := bufio.NewReader(os.Stdin)
+	_w := bufio.NewWriter(os.Stdout)
+	var n int
+	Fscan(_r, &n)
+	Fprintln(_w, n)
+	_w.Flush()
 }
 
 type Node struct {
@@ -42,26 +40,6 @@ func (h *NodeHeap) Pop() interface{} {
 	x := old[n-1]
 	*h = old[0 : n-1]
 	return x
-}
-
-func ReadLine(reader *bufio.Reader) string {
-	line, _ := reader.ReadString('\n')
-	return strings.TrimRight(line, "\n")
-}
-
-func ReadInt(reader *bufio.Reader) int {
-	num, _ := strconv.Atoi(ReadLine(reader))
-	return num
-}
-
-func readArray(reader *bufio.Reader) []int {
-	line := ReadLine(reader)
-	strs := strings.Split(line, " ")
-	nums := make([]int, len(strs))
-	for i, s := range strs {
-		nums[i], _ = strconv.Atoi(s)
-	}
-	return nums
 }
 
 func init() {
