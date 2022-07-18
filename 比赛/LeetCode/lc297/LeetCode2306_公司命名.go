@@ -17,13 +17,20 @@ func distinctNames(ideas []string) int64 {
     }
 
     ans := 0
-    for _, idea := range ideas {
-        mask := suffix[idea[1:]]
-        for c := byte('a'); c <= byte('z'); c++ {
-            if (mask>>(c-byte('a')))&1 == 0 {
-                // 互补
-                ans += cnt[c][idea[0]]
-            }
+    // for _, idea := range ideas {
+    //     mask := suffix[idea[1:]]
+    //     for c := byte('a'); c <= byte('z'); c++ {
+    //         if (mask>>(c-byte('a')))&1 == 0 {
+    //             // 互补
+    //             ans += cnt[c][idea[0]]
+    //         }
+    //     }
+    // }
+
+    // 等价于下面
+    for i := byte('a'); i <= byte('z'); i++ {
+        for j := byte('a'); j <= byte('z'); j++ {
+            ans += cnt[i][j] * cnt[j][i]
         }
     }
     return int64(ans)
@@ -33,27 +40,24 @@ func distinctNames(ideas []string) int64 {
 // func distinctNames(ideas []string) int64 {
 //     m := make(map[string]int)
 //     set := make(map[string]bool)
-//     prefix := make(map[byte][]string)
 //     for _, idea := range ideas {
-//         prefix[idea[0]] = append(prefix[idea[0]], idea)
 //         set[idea] = true
 //     }
 
-//     for i := byte('a'); i <= byte('z'); i++ {
-//         for _, idea := range ideas {
-//             t := string(i) + idea[1:]
+//     for _, idea := range ideas {
+//         for c := byte('a'); c <= byte('z'); c++ {
+//             t := string(c) + idea[1:]
 //             if !set[t] {
-//                 m[idea] |= 1 << (i - byte('a'))
+//                 m[idea] |= 1 << (c - byte('a'))
 //             }
 //         }
 //     }
+
 //     var must [256][256]int
-//     for k, ss := range prefix {
-//         for _, v := range ss {
-//             for i := byte('a'); i <= byte('z'); i++ {
-//                 if ((1 << (i - byte('a'))) & m[v]) != 0 {
-//                     must[k][i]++
-//                 }
+//     for _, idea := range ideas {
+//         for c := byte('a'); c <= byte('z'); c++ {
+//             if ((1 << (c - byte('a'))) & m[idea[0]]) != 0 {
+//                 must[idea[0]][c]++
 //             }
 //         }
 //     }
@@ -61,18 +65,12 @@ func distinctNames(ideas []string) int64 {
 //     cnt := 0
 //     for _, idea := range ideas {
 //         mask := m[idea]
-//         for i := byte('a'); i <= byte('z'); i++ {
-//             if ((1 << (i - byte('a'))) & mask) == 0 {
+//         for c := byte('a'); c <= byte('z'); c++ {
+//             if ((1 << (c - byte('a'))) & mask) == 0 {
 //                 continue
 //             }
-//             // idea 和 i 开头的v交换
-//             // for _, v := range prefix[i] {
-//             //     // v 和 idea[0]开头交换
-//             //     if ((1<<(idea[0]-byte('a'))) & m[v]) != 0 {
-//             //         cnt++
-//             //     }
-//             // }
-//             cnt += must[i][idea[0]]
+//             // idea 和 c 开头的v交换，c和idea[0]开头的换，互补
+//             cnt += must[c][idea[0]]
 //         }
 //     }
 //     return int64(cnt)
