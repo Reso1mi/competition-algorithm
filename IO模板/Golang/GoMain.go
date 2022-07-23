@@ -9,10 +9,13 @@ import (
 func main() {
 	_r := bufio.NewReader(os.Stdin)
 	_w := bufio.NewWriter(os.Stdout)
-	var n int
-	Fscan(_r, &n)
-	Fprintln(_w, n)
-	_w.Flush()
+	defer _w.Flush()
+
+	var a int
+	var b string
+	var c bool
+	Fscan(_r, &a, &b, &c)
+	Fprintln(_w, a, b, c)
 }
 
 type Node struct {

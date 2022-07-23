@@ -3,6 +3,7 @@ import java.io.*;
 
 class Main {
 
+    // |OB|-|AB| = k
     public static void main(String[] args) throws Exception {
         PrintWriter out = new PrintWriter(new BufferedOutputStream(System.out));
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
