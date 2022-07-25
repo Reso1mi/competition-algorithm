@@ -25,7 +25,6 @@ class Main {
 
         // 投掷i次硬币，cnt为j的最大收益
         long[][] dp = new long[N+1][N+1];
-        // dp[i][j] = dp[i][j-1] 
         long lastMax = 0;
         for(int i = 1; i <= N; i++) {
             for (int j = 0; j <= i; j++) {
