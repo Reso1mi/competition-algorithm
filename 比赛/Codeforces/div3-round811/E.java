@@ -24,6 +24,9 @@ class Main {
         PrintWriter out = new PrintWriter(new BufferedOutputStream(System.out));
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         int T = read(br)[0];
+        // 分析发现20为一个循环，我们将20以内的元素进行分组，两组元素序列完全平行，无法相交
+        // 所以如果元素 mod 20在同一组中，那么就一定可以转化成一样的，否则一定不行
+        // 除此之外，需要额外注意5和0结尾的元素，它们最多只能转化一次，所以如果有5/0结尾的元素，那么所有元素都必须是5/0结尾，且5结尾经过转换后与0结尾相同
         var s1 = new HashSet<>();
         s1.add(1); s1.add(2); s1.add(4); s1.add(8); s1.add(13); s1.add(16); s1.add(17); s1.add(19);
         var s2 = new HashSet<>();
@@ -48,6 +51,7 @@ class Main {
                     ins2 = true;
                 }
             }
+            // 既有s1中的元素，又有s2中的元素 || 有5/0结尾的但是不全是 || 全是5/0结尾的，但是转换后不想等
             if ((ins2 && ins1) || (cnt5 != 0 && cnt5 != a.length) || (cnt5 == a.length && set5.size() != 1)) {
                 out.println("No");
             } else {
