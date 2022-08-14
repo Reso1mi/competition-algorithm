@@ -16,7 +16,6 @@ class Main {
 
     static int idx;
     static int[] e, ne, h, wa, wb;
-    static long suma, sumb;
     static int si;
     static long[] stack;
     static int[] res;
@@ -33,11 +32,9 @@ class Main {
         int T = read(br)[0];
         while (T-- > 0) {
             int N = read(br)[0];
-            idx = 0;
-            suma = 0; sumb = 0;
             
+            idx = 0;   
             h = new int[N+1]; Arrays.fill(h, -1);
-
             e = new int[N+1]; ne = new int[N+1];
             wa = new int[N+1]; wb = new int[N+1];
 
@@ -58,11 +55,8 @@ class Main {
         out.flush();
     }
 
-    public static void dfs(int x, int a, int b) {
-        suma += a;
-        sumb += b;
+    public static void dfs(int x, long suma, long sumb) {
         stack[si++] = sumb;
-        
         // 二分找suma
         int left = 0, right = si-1;
         while (left <= right) {
@@ -76,12 +70,10 @@ class Main {
         }
 
         for (int i = h[x]; i != -1; i = ne[i]) {
-            dfs(e[i], wa[i], wb[i]);
+            dfs(e[i], suma+wa[i], sumb+wb[i]);
         }
-        
+        // 出栈
         si--;
-        suma -= a;
-        sumb -= b;
     }
 
 
